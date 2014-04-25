@@ -1,8 +1,14 @@
 set nocompatible              " be iMproved, required
 
 filetype off                  " required
+"Some fundamental setting
 "Set the number
 set nu
+"Be smart when using tabs
+set smarttab
+"1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/vundle/
