@@ -22,6 +22,7 @@ Plugin 'gmarik/vundle'
 
 " The following are examples of different formats supported.
 " Keep Plugin commands between here and filetype plugin indent on.
+
 " scripts on GitHub repos
 Plugin 'tpope/vim-fugitive'
 Plugin 'Lokaltog/vim-easymotion'
@@ -29,11 +30,16 @@ Plugin 'tpope/vim-rails.git'
 "The sparkup vim script is in a subdirectory of this repo called vim.
 "Pass the path to set the runtimepath properly.
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+
 "scripts from http://vim-scripts.org/vim/scripts.html
 Plugin 'L9'
 Plugin 'FuzzyFinder'
+Bundle 'python.vim'
+Bundle 'pythonhelper'
+
 "scripts not on Github
 Plugin 'git://git.wincent.com/command-t.git'
+
 "git repos on your local machine (i.e when working on your own plugin)
 Plugin 'file:///home/gmarik/path/to/plugin'
 Bundle 'The-NERD-tree'
