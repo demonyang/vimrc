@@ -18,7 +18,7 @@ Plugin 'gmarik/vundle'
 "Better file browser
 Bundle 'scrooloose/nerdtree'
 "code commenetr
-Bundle 'srcooloose/nerdcommenter'
+"Bundle 'srcooloose/nerdcommenter'
 "Class/module browser
 Bundle 'majustsushi/tagbar'
 
