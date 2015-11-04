@@ -16,7 +16,7 @@ Plugin 'gmarik/vundle'
 " Keep Plugin commands between here and filetype plugin indent on.
 " scripts on GitHub repos
 Plugin 'fatih/vim-go'
-Bundle 'Shougo/neocomplete.vim'
+"Bundle 'Shougo/neocomplete.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'rdnetto/YCM-Generator'
@@ -79,6 +79,8 @@ syntax enable
 syntax on
 " set c/c++ autoindent
 set cindent
+"set nocompatible
+"set backspace=indent,eol,start
 
 ""Set the NERDTree
 let NERDTreeMinimalUI=1
@@ -87,8 +89,33 @@ let NERDChristmasTree=1
 nnoremap <leader>t :NERDTreeToggle<CR>
 ""autocmd vimenter * NERDTree
 
-""The settings of neocomplete
-let g:neocomplete#enable_at_startup = 1
+
+"""""""""""""""""""""""""""""""""""""""
+"           ycm settings
+"""""""""""""""""""""""""""""""""""""""
+" 开启 YCM 基于标签引擎  
+let g:ycm_collect_identifiers_from_tags_files=1 
+"每次重新生成匹配项，禁止缓存匹配项  
+let g:ycm_cache_omnifunc=0 
+""在注释中也可以补全  
+let g:ycm_complete_in_comments=1 
+"开启语义补全  
+let g:ycm_seed_identifiers_with_syntax =1
+""输入第一个字符就开始补全  
+let g:ycm_min_num_of_chars_for_completion=2
+"不查询ultisnips提供的代码模板补全，如果需要，设置成1即可  
+let g:ycm_use_ultisnips_completer=0
+"在接受补全后不分裂出一个窗口显示接受的项  
+set completeopt-=preview 
+"在字符串输入中也能补全
+let g:ycm_complete_in_strings=1
+"black list
+let g:ycm_filetype_blacklist = {
+      \ 'tagbar' : 1,
+      \ 'nerdtree' : 1,
+      \ 'go' : 1,
+      \ 'golang' : 1,
+      \}
 nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>  
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>  
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR> 
@@ -97,6 +124,7 @@ nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 colorscheme molokai
 set t_Co=256
 
+set backspace=indent,eol,start
 ""shortcut of Tagbar
 nnoremap <leader>p :TagbarToggle<CR>
 
