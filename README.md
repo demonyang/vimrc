@@ -2,8 +2,9 @@ vimrc
 =====
 
 The setting of my vim
-1.
- after installed YouCompleteMe with vundle,you should compile it:
- cd ~/.vim/bundle/YouCompleteMe
- ./install.sh --clang-completer
- details for https://github.com/Valloric/YouCompleteMe
+
+after installed YouCompleteMe with vundle,you should compile it:
+1. cd ~/.vim/bundle/YouCompleteMe
+2. ./install.sh --clang-completer
+3. details for [YouCompleteMe](https://github.com/Valloric/YouCompleteMe)
+
