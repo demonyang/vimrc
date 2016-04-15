@@ -20,7 +20,14 @@ Plugin 'fatih/vim-go'
 Bundle 'majutsushi/tagbar'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'rdnetto/YCM-Generator'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'Yggdroot/indentLine'
+Bundle 'derekwyatt/vim-fswitch'
 
+Bundle 'mileszs/ack.vim'
+Bundle 'dyng/ctrlsf.vim'
+
+Bundle 'fholgado/minibufexpl.vim'
 "The sparkup vim script is in a subdirectory of this repo called vim.
 "Pass the path to set the runtimepath properly.
 "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
@@ -40,6 +47,11 @@ filetype on
 filetype plugin indent on     " required
 
 let mapleader = "]"
+" 设置 gvim 显示字体
+"set guifont=YaHei\ Consolas\ Hybrid\ 10
+" 设置状态栏主题风格
+let g:Powerline_colorscheme='solarized256'
+"let g:Powerline_symbols='fancy'
 ""Some fundamental setting
 ""Set the number
 ""right
@@ -52,6 +64,7 @@ nnoremap <leader>jw <C-W>j
 nnoremap <leader>kw <C-W>k
 
 set nu
+set cscopequickfix=s-,c-,d-,i-,t-,e-  
 ""Be smart when using tabs
 set smarttab
 ""tabs and apaces handling
@@ -80,19 +93,34 @@ syntax on
 " set c/c++ autoindent
 set cindent
 "set nocompatible
-"set backspace=indent,eol,start
 
-""Set the NERDTree
+" Vim
+let g:indentLine_color_term = 239
+let g:indentLine_char = '|'
+"close indetLine
+"let g:indentLine_enabled = 0
+
+
+"使用ctrlsf.vim插件在工程内全局查找光标所在关键字，
+"设置快捷键。快捷键速记法：search in project
+nnoremap <Leader>sp :CtrlSF<CR>
+
+""""""""""""""""""""""""""""""""""""""
+"       Setting the NERDTree
+"""""""""""""""""""""""""""""""""""""
 let NERDTreeMinimalUI=1
 let NERDChristmasTree=1
 ""Give a short key to NERD Tree
 nnoremap <leader>t :NERDTreeToggle<CR>
-""autocmd vimenter * NERDTree
+let NERDTreeWinPos = "right"
 
 
 """""""""""""""""""""""""""""""""""""""
-"           ycm settings
+"           YCM SETTINGS
 """""""""""""""""""""""""""""""""""""""
+let g:ycm_global_ycm_extra_conf = '~/.vim/data/ycm/.ycm_extra_conf.py'
+"关闭加载.ycm_extra_conf.py提示
+let g:ycm_confirm_extra_conf=0 
 " 开启 YCM 基于标签引擎  
 let g:ycm_collect_identifiers_from_tags_files=1 
 "每次重新生成匹配项，禁止缓存匹配项  
@@ -102,7 +130,7 @@ let g:ycm_complete_in_comments=1
 "开启语义补全  
 let g:ycm_seed_identifiers_with_syntax =1
 ""输入第一个字符就开始补全  
-let g:ycm_min_num_of_chars_for_completion=2
+let g:ycm_min_num_of_chars_for_completion=1
 "不查询ultisnips提供的代码模板补全，如果需要，设置成1即可  
 let g:ycm_use_ultisnips_completer=0
 "在接受补全后不分裂出一个窗口显示接受的项  
@@ -113,20 +141,26 @@ let g:ycm_complete_in_strings=1
 let g:ycm_filetype_blacklist = {
       \ 'tagbar' : 1,
       \ 'nerdtree' : 1,
-      \ 'go' : 1,
-      \ 'golang' : 1,
       \}
 nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>  
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>  
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR> 
 
-""The settings og vim's colorscheme
+"""""""""""""""""""""""""""""""""""""""
+"  Settings of vim's colorscheme
+"""""""""""""""""""""""""""""""""""""""
 colorscheme molokai
 set t_Co=256
 
 set backspace=indent,eol,start
-""shortcut of Tagbar
+
+"""""""""""""""""""""""""""""""""""""""
+"  Settings of tagbar
+"""""""""""""""""""""""""""""""""""""""
+"shortcut of Tagbar
 nnoremap <leader>p :TagbarToggle<CR>
+"let tagbar left
+let g:tagbar_left = 1
 
 " 基于缩进或语法进行代码折叠
 "set foldmethod=indent
@@ -136,7 +170,10 @@ set foldmethod=marker
 set nofoldenable
 nnoremap <leader>zd zf%
 
-""Set golang's highlight
+"""""""""""""""""""""""""""""""""""""""
+"  Settings of GoLang
+"""""""""""""""""""""""""""""""""""""""
+"Set golang's highlight
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
@@ -148,6 +185,30 @@ let g:go_fmt_autosave = 0
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+
+"< F6> build and run sample C++ program 
+map <F6> :call CompileRunGpp()<CR>  
+func! CompileRunGpp()  
+exec "w"  
+exec "!g++  % -o %<"  
+exec "! ./%<"  
+endfunc  
+"<F8> C,C++的调试
+map <F7> :call Rungdb()<CR>
+func! Rungdb()
+exec "w"
+exec "!g++ % -g -o %<"
+exec "!gdb ./%<"
+endfunc
+
+let g:miniBufExplorerAutoStart = 0 
+
+
+"""""""""""""""""""""""""""""""""""""""
+"  Settings of vim-fswitch
+"""""""""""""""""""""""""""""""""""""""
+" switch .cc/.cpp with .h
+nmap <silent><Leader>sw :FSHere<cr>
 
 " Uncomment the following to have Vim jump to the last position when
 " " reopening a file
