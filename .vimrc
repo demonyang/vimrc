@@ -113,11 +113,13 @@ let NERDChristmasTree=1
 ""Give a short key to NERD Tree
 nnoremap <leader>t :NERDTreeToggle<CR>
 let NERDTreeWinPos = "right"
+let NERDTreeIgnore = ['\.o$']
 
 
 """""""""""""""""""""""""""""""""""""""
 "           YCM SETTINGS
 """""""""""""""""""""""""""""""""""""""
+set completeopt=longest,menu    "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)
 let g:ycm_global_ycm_extra_conf = '~/.vim/data/ycm/.ycm_extra_conf.py'
 "关闭加载.ycm_extra_conf.py提示
 let g:ycm_confirm_extra_conf=0 
@@ -208,7 +210,9 @@ let g:miniBufExplorerAutoStart = 0
 "  Settings of vim-fswitch
 """""""""""""""""""""""""""""""""""""""
 " switch .cc/.cpp with .h
-nmap <silent><Leader>sw :FSHere<cr>
+nmap <silent><Leader>sw :FSSplitLeft<cr>
+let b:fswitchdst = 'c,cc,cpp'
+let b:fswitchdst = 'h'
 
 " Uncomment the following to have Vim jump to the last position when
 " " reopening a file
